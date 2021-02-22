@@ -84,6 +84,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+dist/
 
 #__pycache__
 __pycache__/
