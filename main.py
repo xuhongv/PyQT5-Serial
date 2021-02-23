@@ -3,6 +3,8 @@ from PyQt5.QtGui import QTextCursor
 from esp_at.AT import *
 from datetime import datetime
 import UI_Serial
+
+from PyQt5.QtGui import QIntValidator
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
 
@@ -21,7 +23,7 @@ def at_callback_handler(obj):
     else:
         buff = (obj['data'])
         now_time = datetime.now()  # 获取当前时间
-        new_time = now_time.strftime('[%H:%M:%S]')  # 打印需要的信息,依次是年月日,时分秒,注意字母大小写
+        # new_time = now_time.strftime('[%H:%M:%S]')  # 打印需要的信息,依次是年月日,时分秒,注意字母大小写
         if ui.checkBox_show_hex.checkState():
             out_s = ''
             for i in range(0, len(buff)):
@@ -89,7 +91,6 @@ def InitUI():
 
     mATObj.set_dts(False)
     mATObj.set_rts(True)
-    #  self.dsrdtr = dsrdtr
 
     # 默认波特率 74880
     ui.comboBox_baud.setCurrentIndex(1)
@@ -103,8 +104,9 @@ def InitUI():
     ui.checkBox_rts.stateChanged.connect(OnClickRTS)
     #  dts
     ui.checkBox_dtr.stateChanged.connect(OnClickDTR)
-    #
+    # 设置定时发送的按钮
     ui.checkBox_timer_send.stateChanged.connect(OnClickTimerSend)
+    ui.lineEdit_ms_send.setValidator(QIntValidator(0, 99999999))
     #  Clear Log
     ui.btClearLog.clicked.connect(OnClickClearLog)
     #  send data
@@ -119,10 +121,17 @@ def OnClickClearLog():
 
 # 点击发送
 def OnClickTimerSend(state):
+    print('OnClickTimerSend:',state)
     if state == QtCore.Qt.Unchecked:
         timer_send.stop()
     elif state == QtCore.Qt.Checked:
-        timer_send.start(1000)
+        times = ui.lineEdit_ms_send.text()
+        try:
+            times_send = int(times)
+            timer_send.start(times_send)
+        except:
+            QMessageBox.critical(MainWindow, '错误信息', '请输入数字！')
+            ui.checkBox_timer_send.setChecked(False)
 
 
 # RTS流控
@@ -133,7 +142,7 @@ def OnClickRTS(state):
         mATObj.set_rts(True)
 
 
-# RTS流控
+# DTR流控
 def OnClickDTR(state):
     if state == QtCore.Qt.Unchecked:
         mATObj.set_dts(False)
