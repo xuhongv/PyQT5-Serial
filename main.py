@@ -600,18 +600,20 @@ def OnclickSend6():
 
 def OnclickSend7():
     ui.lineEdit_send_data.setText(ui.ed_tcp_udp_set_7.text())
+    print("OnclickSend7", ui.cb_protocol_tcp_udp_boot.currentIndex())
     # 透传模式在FLASH？
-    if not ui.cb_protocol_tcp_udp_boot.currentIndex() == 0:
-        SendDataFuntion(False)
+    if ui.cb_protocol_tcp_udp_boot.currentIndex() == 1:
+        SendDataFuntion(True)
     else:
         SendDataFuntion()
 
 
 def OnclickSend8():
     ui.lineEdit_send_data.setText(ui.ed_tcp_udp_set_8.text())
+    print("OnclickSend8", ui.cb_protocol_tcp_udp_boot.currentIndex())
     # 透传模式在FLASH？
     if ui.cb_protocol_tcp_udp_boot.currentIndex() == 0:
-        SendDataFuntion(False)
+        SendDataFuntion(True)
     else:
         SendDataFuntion()
 
