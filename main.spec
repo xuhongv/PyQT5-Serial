@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['D:\\Python\\ProjectQT5\\AiThinker-serial\\main.py'],
-             pathex=['D:\\Python\\ProjectQT5\\AiThinker-serial'],
+a = Analysis(['main.py'],
+             pathex=['D:\\GitEe\\PyQT5-Serial'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False )
+          console=False , icon='res\\favicon.ico')

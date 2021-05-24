@@ -1,0 +1,26 @@
+{
+  "boudrate": "115200",
+  "groupBox_customs": [
+    "AT",
+    "AT+RST",
+    "AT+CWMODE=1",
+    "AT+CWJAP=\"aiot@xuhongv\",\"xuhong12345678\"",
+    "AT+GMR",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+}

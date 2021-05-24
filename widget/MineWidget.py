@@ -7,10 +7,8 @@ from PyQt5.QtCore import *
 # widget.MineWidget   ESP8266.setCentralWidget(self.centralwidget)
 
 class MineWidget(QWidget):
-
     # 定义一个信号变量，1个参数
     signalMineWidget = pyqtSignal(object)
-
 
     def set_connect_key_press(self, fun):
         self.signalMineWidget.connect(fun)
@@ -21,3 +19,8 @@ class MineWidget(QWidget):
 
     def mousePressEvent(self, event):
         self.signalMineWidget.emit(event.button())
+
+    # 添加一个退出的提示事件
+    def closeEvent(self, event):
+        print("22222222222222222")
+        self.signalMineWidget.emit(1111)
