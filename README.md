@@ -1,7 +1,7 @@
 # PyQT5-Serial
 
 <p align="center">
-  <img src="https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/PyQT5.jpg" width="680px" height="340px" alt="Banner" />
+  <img src="https://aithinker-static.oss-cn-shenzhen.aliyuncs.com/bbs/important/PyQT5.jpg" alt="Banner" />
 </p>
 
 
