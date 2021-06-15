@@ -12,8 +12,9 @@ from PyQt5.QtGui import QIntValidator
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMessageBox
 from widget.QMainMyWindow import QMainMyWindow
+import codecs
 
-SOFTWARE_VERSION = 'V2.0.1'
+SOFTWARE_VERSION = 'V2.0.2'
 
 DEFAULT_BAUD_ARRAY = ('4800', '74880', '9600', '57600', '115200', '576000', '921600',)
 DEFAULT_AliYun_RegionId_Show = ('上海', '深圳', '杭州', '河源', '广州', '成都', '青岛', '北京', '张家口', '呼和浩特', '乌兰察布')
@@ -22,6 +23,12 @@ DEFAULT_AliYun_RegionId = (
     'cn-zhangjiakou', 'cn-huhehaote', 'cn-wulanchabu')
 GET_PORT_ARRAY = []
 
+def xh_utf8_error_handler(err):
+    start = err.start
+    end = err.end
+    return ("".join(["<%02X>"% err.object[i] for i in range(start,end)]),end)
+
+codecs.register_error('xh_replace', xh_utf8_error_handler)
 
 def at_callback_handler(obj):
     if obj['code'] == 1:
@@ -48,9 +55,9 @@ def at_callback_handler(obj):
         else:
             try:
                 if ui.checkBox_show_add_ctrl.checkState():
-                    ui.textBrowserShow.append(buff.decode('utf-8', 'ignore'))
+                    ui.textBrowserShow.append(buff.decode('utf-8', errors='xh_replace'))
                 else:
-                    ui.textBrowserShow.insertPlainText(buff.decode('utf-8', 'ignore'))
+                    ui.textBrowserShow.insertPlainText(buff.decode('utf-8', errors='xh_replace'))
                 ui.textBrowserShow.moveCursor(QTextCursor.End)
             except:
                 # 乱码显示
